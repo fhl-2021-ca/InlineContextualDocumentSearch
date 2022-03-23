@@ -15,8 +15,8 @@ router.get('/', async (req, res, next) => {
     const apiKey = process.env.SEARCH_API_KEY || "";
     const indexName = "fhldocumentsearch-index2";
     const searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
-    await sendQueries(searchClient, "\"app service\"");
-    res.render('index', { title: 'Express' });
+    var apiResult = await sendQueries(searchClient, "\"app service\"");
+    res.json(apiResult);
   }
   catch (err) {
     console.error(err);
@@ -69,6 +69,8 @@ router.get('/', async (req, res, next) => {
     console.log(`\n\n\n!!!!!!!!!!!!!!!!!!            SUMMMARY  END           !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
   }
   //console.log(`\n\n\n!!!!!!!!!!!!!!!!!!            FINAL RESULT           !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
+
+  return summary;
 }
 // lodBKCxCllyNMHasYrwgOvcmJBPsVkBaQkpRrnOAUcRWPydUBffWKzqrHrcYwnzBFhtvpHgwBHMDtDffPRXFlOYgdLtLQDCjbSwdvIBImYBCsKYfZXZjsisFjVqWYZlC
 
