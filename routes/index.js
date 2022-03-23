@@ -9,13 +9,16 @@ router.get('/', async (req, res, next) => {
   try{
       // Load the .env file if it exists
     require("dotenv").config();
-
+    // Access the provided 'page' and 'limt' query parameters
+    let searchString = req.query.searchString;
+    console.log(`${searchString}`)
     // Getting endpoint and apiKey from .env file
     const endpoint = process.env.SEARCH_API_ENDPOINT || "";
     const apiKey = process.env.SEARCH_API_KEY || "";
     const indexName = "fhldocumentsearch-index2";
     const searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
-    var apiResult = await sendQueries(searchClient, "\"app service\"");
+    // Make it a single string instead of space so that it is not searched separately in cognitive search
+    var apiResult = await sendQueries(searchClient, `\"${searchString}\"`);
     res.json(apiResult);
   }
   catch (err) {
@@ -23,6 +26,8 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+
 
 
  async function sendQueries(searchClient, text) {
