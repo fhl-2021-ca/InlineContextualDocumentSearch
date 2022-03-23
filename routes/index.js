@@ -72,7 +72,6 @@ router.get('/', async (req, res, next) => {
 
   return summary;
 }
-// lodBKCxCllyNMHasYrwgOvcmJBPsVkBaQkpRrnOAUcRWPydUBffWKzqrHrcYwnzBFhtvpHgwBHMDtDffPRXFlOYgdLtLQDCjbSwdvIBImYBCsKYfZXZjsisFjVqWYZlC
 
 async function queryBART(data) {
   var result = {};
