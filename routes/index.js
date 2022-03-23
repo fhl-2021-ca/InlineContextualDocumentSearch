@@ -6,7 +6,7 @@ var fetch = require('node-fetch');
 const { json } = require('express');
 
 /* GET home page. */
-router.get('/', async (req, res, next) => {
+router.get('/summary', async (req, res, next) => {
   try{
       // Load the .env file if it exists
     require("dotenv").config();
@@ -23,8 +23,22 @@ router.get('/', async (req, res, next) => {
     //res.json(apiResult);
     const jsonContent = JSON.stringify(apiResult).replace("\\r", "");
     res.end(jsonContent);
-    //res.send(apiResult);
-    //res.apiResult;
+  }
+  catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+/* GET home page. */
+router.get('/', async (req, res, next) => {
+  try{
+      // Load the .env file if it exists
+    require("dotenv").config();
+    // Access the provided 'page' and 'limt' query parameters
+    let searchString = req.query.searchString;
+    console.log(`${searchString}`)
+    res.render('home', {title: "hello"});
   }
   catch (err) {
     console.error(err);

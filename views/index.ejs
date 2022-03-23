@@ -7,5 +7,14 @@
   <body>
     <h1>Hi <%= title %> !</h1>
     <p>Welcome to <%= title %></p>
+    <p>Welcome to app service</p>
+    <div id="doc" onmouseup="myFunction()">This example demonstrates how to assign an "onselect" event to an input element.</div>
+      <p id="demo"></p>
+
+      <script>
+      function myFunction() {
+        document.getElementById("demo").innerHTML = "you selected" + document.getSelection();;
+      }
+      </script>
   </body>
 </html>
