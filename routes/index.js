@@ -3,6 +3,7 @@ var router = express.Router();
 const { SearchIndexClient, SearchClient, AzureKeyCredential, odata } = require("@azure/search-documents");
 //import {fetch} from "node-fetch";
 var fetch = require('node-fetch');
+const { json } = require('express');
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
@@ -19,7 +20,11 @@ router.get('/', async (req, res, next) => {
     const searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
     // Make it a single string instead of space so that it is not searched separately in cognitive search
     var apiResult = await sendQueries(searchClient, `\"${searchString}\"`);
-    res.json(apiResult);
+    //res.json(apiResult);
+    const jsonContent = JSON.stringify(apiResult).replace("\\r", "");
+    res.end(jsonContent);
+    //res.send(apiResult);
+    //res.apiResult;
   }
   catch (err) {
     console.error(err);
@@ -64,12 +69,12 @@ router.get('/', async (req, res, next) => {
     var summaryResult = await queryBART({"inputs": JSON.stringify(documents[i].content)});
     //console.log(JSON.stringify(summaryResult[0].summary_text));
     const documentSummaryObject = new Object();
-    documentSummaryObject.content = summaryResult;
+    documentSummaryObject.content = summaryResult[0].summary_text;
     documentSummaryObject.url = documents[i].url;
 
-    summary.push(documentSummaryObject);
     console.log(`Summary: ${documentSummaryObject.url}`);
     console.log(`Summary: ${JSON.stringify(documentSummaryObject).replace("\\r", "")}`);
+    summary.push(documentSummaryObject);
 
     console.log(`\n\n\n!!!!!!!!!!!!!!!!!!            SUMMMARY  END           !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
   }
