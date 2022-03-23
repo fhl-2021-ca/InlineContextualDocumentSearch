@@ -4,28 +4,54 @@
     <title>Hi <%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      .loader {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 1;
+          border: 12px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 12px solid #444444;
+          width: 70px;
+          height: 70px;
+          animation: spin 1s linear infinite;
+          visibility: hidden;
+      }
+        
+      @keyframes spin {
+          100% {
+              transform: rotate(360deg);
+          }
+      }
+        
+      .center {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+      }
+    </style>
   </head>
   <body>
+    <div id="documentDetails">
     <h1>Hi <%= title %> !</h1>
     <p>Welcome to <%= title %></p>
     <div id="doc" onmouseup="myFunction()">This example app service how to assign an "onselect" event to an input element.</div>
-      <p id="demo"> API response is : </p>
-
-        <!-- Modal -->
+            <!-- Modal -->
         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Search Result Summary</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
-                    <ul id="listParent" class="list-group">
-                        
-               
-                      </ul>                      
+                    <ul id="listParent" class="list-group"></ul>                      
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -33,7 +59,8 @@
             </div>
             </div>
         </div>
-  
+    </div>
+    <div id="loaderDiv" class="loader"></div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -43,6 +70,8 @@
             var searchText = document.getSelection();
             console.log(`"Selected text : ${searchText}"`);
             url = 'http://localhost:3000/summary?searchString=' + `${searchText}`;
+            //document.getElementById("documentDetails").style.visibility = "hidden";
+            document.getElementById("loaderDiv").style.visibility = "visible";
             const response = await fetch(url);
             const myJson = await response.json(); //extract JSON from the http response
 
@@ -54,7 +83,8 @@
                 htmlContent += "<li class=\"list-group-item\">" + opt.content + "<br>" + "<a href="+ opt.url + " target=\"_blank\">"  + "Go to document" + "</a>" + "</li>";
             }
             $('#listParent').append(htmlContent);
-
+            //document.getElementById("documentDetails").style.visibility = "visible";
+            document.getElementById("loaderDiv").style.visibility = "hidden";
             $("#exampleModalLong").modal("toggle");
         }
       </script>

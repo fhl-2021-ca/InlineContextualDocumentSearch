@@ -35,9 +35,6 @@ router.get('/', async (req, res, next) => {
   try{
       // Load the .env file if it exists
     require("dotenv").config();
-    // Access the provided 'page' and 'limt' query parameters
-    let searchString = req.query.searchString;
-    console.log(`${searchString}`)
     res.render('home', {title: "hello"});
   }
   catch (err) {
