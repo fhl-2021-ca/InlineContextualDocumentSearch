@@ -70,7 +70,6 @@ router.get('/', async (req, res, next) => {
   }
   //console.log(`\n\n\n!!!!!!!!!!!!!!!!!!            FINAL RESULT           !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
 }
-// lodBKCxCllyNMHasYrwgOvcmJBPsVkBaQkpRrnOAUcRWPydUBffWKzqrHrcYwnzBFhtvpHgwBHMDtDffPRXFlOYgdLtLQDCjbSwdvIBImYBCsKYfZXZjsisFjVqWYZlC
 
 async function queryBART(data) {
   var result = {};
