@@ -12,17 +12,17 @@ router.get('/summary', async (req, res, next) => {
     require("dotenv").config();
     // Access the provided 'page' and 'limt' query parameters
     let searchString = req.query.searchString;
-    console.log(`${searchString}`)
-    // Getting endpoint and apiKey from .env file
-    const endpoint = process.env.SEARCH_API_ENDPOINT || "";
-    const apiKey = process.env.SEARCH_API_KEY || "";
-    const indexName = "fhldocumentsearch-index2";
-    const searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
-    // Make it a single string instead of space so that it is not searched separately in cognitive search
-    var apiResult = await sendQueries(searchClient, `\"${searchString}\"`);
-    //res.json(apiResult);
-    const jsonContent = JSON.stringify(apiResult).replace("\\r", "");
-    res.end(jsonContent);
+      console.log(`${searchString}`)
+      // Getting endpoint and apiKey from .env file
+      const endpoint = process.env.SEARCH_API_ENDPOINT || "";
+      const apiKey = process.env.SEARCH_API_KEY || "";
+      const indexName = "fhldocumentsearch-index2";
+      const searchClient = new SearchClient(endpoint, indexName, new AzureKeyCredential(apiKey));
+      // Make it a single string instead of space so that it is not searched separately in cognitive search
+      var apiResult = await sendQueries(searchClient, `\"${searchString}\"`);
+      //res.json(apiResult);
+      const jsonContent = JSON.stringify(apiResult).replace("\\r", "");
+      res.end(jsonContent);
   }
   catch (err) {
     console.error(err);
@@ -78,7 +78,7 @@ router.get('/', async (req, res, next) => {
 
     console.log(`\n\n\n!!!!!!!!!!!!!!!!!!            SUMMMARY   START          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
     var summaryResult = await queryBART({"inputs": JSON.stringify(documents[i].content)});
-    //console.log(JSON.stringify(summaryResult[0].summary_text));
+    console.log(JSON.stringify(summaryResult[0].summary_text));
     const documentSummaryObject = new Object();
     documentSummaryObject.content = summaryResult[0].summary_text;
     documentSummaryObject.url = documents[i].url;

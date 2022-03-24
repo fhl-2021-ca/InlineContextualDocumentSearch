@@ -83,23 +83,28 @@
             //var modalabc =  document.getElementById("exampleModalLong");
             var searchText = document.getSelection();
             console.log(`"Selected text : ${searchText}"`);
-            url = 'http://localhost:3000/summary?searchString=' + `${searchText}`;
-            //document.getElementById("documentDetails").style.visibility = "hidden";
-            document.getElementById("loaderDiv").style.visibility = "visible";
-            const response = await fetch(url);
-            const myJson = await response.json(); //extract JSON from the http response
-
-            $('#listParent').empty();
-
-            var htmlContent = "";
-            for(var i = 0; i < myJson.length; i++) {
-                var opt = myJson[i];
-                htmlContent += "<li class=\"list-group-item\">" + opt.content + "<br>" + "<a href="+ opt.url + " target=\"_blank\">"  + "Go to document" + "</a>" + "</li>";
+            if(searchText == "") {
+                // do nothing    
             }
-            $('#listParent').append(htmlContent);
-            //document.getElementById("documentDetails").style.visibility = "visible";
-            document.getElementById("loaderDiv").style.visibility = "hidden";
-            $("#exampleModalLong").modal("toggle");
+            else {
+                url = 'http://localhost:3000/summary?searchString=' + `${searchText}`;
+                //document.getElementById("documentDetails").style.visibility = "hidden";
+                document.getElementById("loaderDiv").style.visibility = "visible";
+                const response = await fetch(url);
+                const myJson = await response.json(); //extract JSON from the http response
+
+                $('#listParent').empty();
+
+                var htmlContent = "";
+                for(var i = 0; i < myJson.length; i++) {
+                    var opt = myJson[i];
+                    htmlContent += "<li class=\"list-group-item\">" + opt.content + "<br>" + "<a href="+ opt.url + " target=\"_blank\">"  + "Go to document" + "</a>" + "</li>";
+                }
+                $('#listParent').append(htmlContent);
+                //document.getElementById("documentDetails").style.visibility = "visible";
+                document.getElementById("loaderDiv").style.visibility = "hidden";
+                $("#exampleModalLong").modal("toggle");
+            }
         }
       </script>
   </body>
