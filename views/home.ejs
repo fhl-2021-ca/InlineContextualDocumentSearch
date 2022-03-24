@@ -37,8 +37,7 @@
       .context-menu {
             position: absolute;
             text-align: center;
-            background: lightgray;
-            border: 1px solid black;
+            background: white;
         }
   
         .context-menu ul {
@@ -51,7 +50,7 @@
         .context-menu ul li {
             padding-bottom: 7px;
             padding-top: 7px;
-            border: 1px solid black;
+            border: 0px;
         }
   
         .context-menu ul li a {
@@ -87,31 +86,35 @@
 
     </div>
     <div id="contextMenu" class="context-menu" 
-    style="display:none">
+        style="display:none">
         <ul>
-            <li onclick="myFunction()"><a href="#">Search Results</a></li>
+            <li onclick="myFunction()"><a href="#">Get Summary</a></li>
+            <li><a href="#">Copy</a></li>
+            <li><a href="#">Paste</a></li>
+            <li><a href="#">Print</a></li>
+            <li><a href="#">Share</a></li>
         </ul>
     </div>
 
-            <!-- Modal -->
-        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Search Result Summary</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <ul id="listParent" class="list-group"></ul>                      
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Search Result Summary</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             </div>
+            <div class="modal-body">
+                <ul id="listParent" class="list-group"></ul>                      
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
+        </div>
+    </div>
     </div>
     <div id="loaderDiv" class="loader"></div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
