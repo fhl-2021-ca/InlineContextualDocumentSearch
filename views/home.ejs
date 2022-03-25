@@ -129,7 +129,7 @@
                 // do nothing    
             }
             else {
-                url = 'http://localhost:3000/summary?searchString=' + `${searchText}`;
+                url = '/summary?searchString=' + `${searchText}`;
                 //document.getElementById("documentDetails").style.visibility = "hidden";
                 document.getElementById("loaderDiv").style.visibility = "visible";
                 const response = await fetch(url);
